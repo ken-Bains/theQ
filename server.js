@@ -1,10 +1,10 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const routes = require("./routes/apiRoutes");
+// const routes = require("./routes/apiRoutes");
 
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
+
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -15,8 +15,8 @@ if (process.env.NODE_ENV === "production") {
 } else{
   app.use(express.static(__dirname + "/client/src/"))
 }
-app.use(routes);
-
+// app.use(routes);
+require("./routes/apiRoutes")(app)
 // Define API routes here
 // mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/googleBooks");
 
@@ -25,6 +25,10 @@ app.use(routes);
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 // });
+
+
+
+
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
