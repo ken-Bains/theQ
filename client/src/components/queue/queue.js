@@ -1,14 +1,14 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useContext } from "react";
 import axios from "axios";
-import API from "../../utils/API";
+import { QueueContext } from "../../utils/queueProvider";
+// import API from "../../utils/API";
+import * as firebase from "firebase";
 
 const Queue = () => {
+    const {queue, dispatch} = useContext(QueueContext);
+    
     useEffect(() => {
-        axios.get("https://localhost:3001/api/books")
-            .then(res => console.log(res, "queue line7"))
-            .catch(err => console.log(err, " queue.js "))
-        // API.getBooks().then(res=> console.log(res))
-
+        const rootref = firebase.datebase().ref().child("notes");
     })
     
     return (
