@@ -7,6 +7,7 @@ import History from "./components/history/history";
 import Queue from "./components/queue/queue";
 import Admin from "./components/admin/admin";
 import { QueueContextProvider } from "./utils/queueProvider";
+import API from "./utils/API";
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
       type: 'light',
     },
   });
-
+  console.log(Theme)
   return (
     <MuiThemeProvider theme={Theme}>
       <div className="App">
@@ -33,6 +34,8 @@ function App() {
                 <Route path="/admin">
                   <Admin />
                 </Route>
+                <Route path="/oauth" component={API.getSlackAuth}/>
+                <Route path="/notes" component={API.getSlackNotes}/>
               </Switch>
             </Navigation>
           </BrowserRouter>

@@ -185,7 +185,7 @@ export default function MiniDrawer(props) {
         <Divider />
 
       </Drawer>
-      <main className={classes.content}>
+      <main className={classes.content} >
         <div className={classes.toolbar} />
         {props.children}
       </main>

@@ -1,7 +1,15 @@
 import React, { createContext, useReducer } from "react";
-
+import db from "../firebase";
 const QueueContext = createContext();
 
+const init = (initial) => {
+    db.collection("notes")
+    .get()
+    .then(querySnapshot => {
+        const data = querySnapshot.docs.map(doc => doc.data());
+        return data
+    });
+}
 const queueReducer = (state, action) => {
     switch (action.type) {
         case "ADD_ITEM":
@@ -16,8 +24,7 @@ const queueReducer = (state, action) => {
 }
 
 const QueueContextProvider = (props) => {
-    const [queue, dispatch] = useReducer(queueReducer, []);
-
+    const [queue, dispatch] = useReducer(queueReducer, [], init);
     return (
         <QueueContext.Provider value={{ queue, dispatch }}>
             {props.children}
