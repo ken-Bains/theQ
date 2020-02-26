@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -11,11 +11,17 @@ import API from "./utils/API";
 
 
 function App() {
+  const [currentTheme, setCurrentTheme] = useState("light")
   const Theme = createMuiTheme({
     palette: {
-      type: 'light',
+      type: currentTheme,
     },
   });
+
+  const changedTheme = () => {
+    currentTheme === "light" ? setCurrentTheme("dark") : setCurrentTheme("light")
+  }
+
   console.log(Theme)
   return (
     <MuiThemeProvider theme={Theme}>
@@ -23,7 +29,7 @@ function App() {
         <CssBaseline />
         <QueueContextProvider>
           <BrowserRouter>
-            <Navigation>
+            <Navigation changedTheme={changedTheme}>
               <Switch>
                 <Route exact path="/">
                   <Queue />
@@ -34,8 +40,8 @@ function App() {
                 <Route path="/admin">
                   <Admin />
                 </Route>
-                <Route path="/oauth" component={API.getSlackAuth}/>
-                <Route path="/notes" component={API.getSlackNotes}/>
+                {/* <Route path="/oauth" component={API.getSlackAuth}/>
+                <Route path="/notes" component={API.getSlackNotes}/> */}
               </Switch>
             </Navigation>
           </BrowserRouter>

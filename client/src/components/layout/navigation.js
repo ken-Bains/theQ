@@ -18,7 +18,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HistoryIcon from '@material-ui/icons/History';
 import ListIcon from '@material-ui/icons/List';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import Brightness6Icon from '@material-ui/icons/Brightness6';
 import { Link } from "react-router-dom";
+import { Menu, MenuItem } from '@material-ui/core';
 
 const drawerWidth = 200;
 const style = {
@@ -88,6 +90,10 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  dimmerIcon:{
+    position: "absolute",
+    right: 4
+  }
 }));
 
 export default function MiniDrawer(props) {
@@ -127,6 +133,17 @@ export default function MiniDrawer(props) {
           <Typography variant="h6" noWrap>
             The Q
           </Typography>
+          <IconButton
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={props.changedTheme}
+            color="inherit"
+            className={classes.dimmerIcon}
+          >
+
+            <Brightness6Icon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
