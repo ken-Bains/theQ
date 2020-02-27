@@ -1,6 +1,6 @@
 const axios = require("axios");
 const router = require("express").Router();
-// let serviceAccount = require("../firestore.json")
+let serviceAccount = require("../firestore.json")
 const admin = require('firebase-admin');
 // console.log(process.env.CLIENT_ID)
  
@@ -22,7 +22,7 @@ const admin = require('firebase-admin');
 // admin.initializeApp(adminConfig);
 
 admin.initializeApp({
-  credential: admin.credential.cert(process.env.FIRESTORE_CONFIG)
+  credential: admin.credential.cert(serviceAccount)
 });
 let db = admin.firestore();
 
