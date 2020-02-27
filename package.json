@@ -25,11 +25,12 @@
     "create-react-app": "^3.3.1",
     "express": "^4.16.3",
     "firebase-admin": "^8.9.2",
+    "fusioncharts": "^3.15.1",
     "if-env": "^1.0.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-fusioncharts": "^3.1.2",
     "react-router": "^5.1.2",
-    "react-router-dom": "^5.1.2",
-    "react-transition-group": "^4.3.0"
+    "react-router-dom": "^5.1.2"
   }
 }

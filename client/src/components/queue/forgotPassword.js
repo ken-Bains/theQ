@@ -159,7 +159,7 @@ const ForgotPassword = () => {
         </div> */}
         <form noValidate autoComplete="off">
           <TextField id="standard-basic" label="email" />
-          <Button href="#text-buttons" color="primary">
+          <Button href="#text-buttons" color="primary" mt="5px">
         Reset Password
       </Button>
         </form>
