@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import cx from 'clsx';
-import db from "../../firebase";
+import firebaseApp from "../../firebase";
 import { makeStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
@@ -11,6 +11,8 @@ import Box from '@material-ui/core/Box';
 import BrandCardHeader from '@mui-treasury/components/cardHeader/brand';
 import { useLightTopShadowStyles } from '@mui-treasury/styles/shadow/lightTop';
 import CodeIcon from '@material-ui/icons/Code';
+
+const db = firebaseApp.firestore();
 
 const useStyles = makeStyles((theme) => ({
     root: {

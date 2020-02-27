@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import db from "../../firebase";
+import firebaseApp from "../../firebase";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
@@ -9,7 +9,7 @@ import { useTheme } from '@material-ui/core/styles';
 import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
 
 const QueueList = () => {
-    // const { queue, dispatch } = useContext(QueueContext);
+    const db = firebaseApp.firestore();
     const [queueList, setQueueList] = useState([]);
     const stylesShodow = useOverShadowStyles();
     const theme = useTheme();
@@ -38,7 +38,6 @@ const QueueList = () => {
             marginTop: "12px"
         }
     }
-
     const assignToUser = (docId) => {
         console.log(docId)
         db.collection('notes').doc(docId).update({
@@ -51,6 +50,7 @@ const QueueList = () => {
     }
 
     useEffect(() => {
+
         db.collection("notes")
             .where("status_is_active", "==", true)
             // .orderBy("date", "asc")

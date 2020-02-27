@@ -20,6 +20,8 @@ import ListIcon from '@material-ui/icons/List';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import Brightness6Icon from '@material-ui/icons/Brightness6';
 import { Link } from "react-router-dom";
+import Box from '@material-ui/core/Box';
+import BtnLinks from "./btnLinks"
 import { Menu, MenuItem } from '@material-ui/core';
 
 const drawerWidth = 200;
@@ -92,7 +94,7 @@ const useStyles = makeStyles(theme => ({
   },
   dimmerIcon: {
     position: "absolute",
-    right: 4
+    right: 4,
   }
 }));
 
@@ -133,17 +135,21 @@ export default function MiniDrawer(props) {
           <Typography variant="h6" noWrap>
             The Q
           </Typography>
-          <IconButton
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={props.changedTheme}
-            color="inherit"
-            className={classes.dimmerIcon}
-          >
+          <Box className={classes.dimmerIcon}>
 
-            <Brightness6Icon />
-          </IconButton>
+            <BtnLinks></BtnLinks>
+
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={props.changedTheme}
+              color="inherit"
+            >
+
+              <Brightness6Icon />
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -164,14 +170,6 @@ export default function MiniDrawer(props) {
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
-        {/* <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List> */}
         <Divider style={{ marginTop: 150 }} />
         <List >
           <Link to="/" style={style.link}>
@@ -188,14 +186,6 @@ export default function MiniDrawer(props) {
                 <HistoryIcon />
               </ListItemIcon>
               <ListItemText primary="History" />
-            </ListItem>
-          </Link>
-          <Link to="admin" style={style.link}>
-            <ListItem button>
-              <ListItemIcon>
-                <SupervisorAccountIcon />
-              </ListItemIcon>
-              <ListItemText primary="Admin" />
             </ListItem>
           </Link>
         </List>
