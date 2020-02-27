@@ -1,16 +1,15 @@
 const axios = require("axios");
 const router = require("express").Router();
-// const db = require("../models")
 
-const admin = require('firebase-admin');
-let serviceAccount = require('../firestore.json');
+var admin = require('firebase-admin');
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
-let db = admin.firestore();
+  credential: admin.credential.applicationDefault(),
+  databaseURL: 'https://bootcamp-q.firebaseio.com'
+});let db = admin.firestore();
 
 
 router.get('/oauth', function (req, res) {
+  console.log("oath");
   if (!req.query.code) {
     res.status(500);
     res.send({ "Error": "Looks like we're not getting code." });
@@ -31,9 +30,9 @@ router.get('/oauth', function (req, res) {
 
 router.post("/notes", (req, res) => {
   const slackData = req.body;
-
+    console.log("notes")
   // getCurrentActiveList(req.body.response_url)
-
+  
   db.collection('notes').add({
     "student": {
       "id": slackData.user_id,
@@ -53,9 +52,9 @@ router.post("/notes", (req, res) => {
     "topic": '01-html-git-css',
     "date": Date.now()
   }).catch(err => console.log(err));
-
+  
+  
   res.json(slackData.user_name + ", You have been added to the Queue!")
-
 
 });
 

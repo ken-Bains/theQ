@@ -11,7 +11,7 @@ import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
 const QueueList = () => {
     // const { queue, dispatch } = useContext(QueueContext);
     const [queueList, setQueueList] = useState([]);
-    const styles = useOverShadowStyles();
+    const stylesShodow = useOverShadowStyles();
     const theme = useTheme();
     const style = {
         card: {
@@ -33,7 +33,6 @@ const QueueList = () => {
         img: {
             width: 100,
             height: 100,
-            backgroundColor: "red",
             borderRadius: "15px",
             marginLeft: "-35px",
             marginTop: "12px"
@@ -66,9 +65,9 @@ const QueueList = () => {
     }, [])
     console.log(queueList)
     return (
-        <>
+        <Box mt="20px">
             {queueList.map((note, index) => {
-                return <Box borderRadius={16} classes={styles} style={style.card} className={"animated fadeOutUp slideInUp"} key={index}>
+                return <Box borderRadius={16} classes={stylesShodow} style={style.card} className={"animated fadeIn"} key={index} >
                     <Grid container>
                         <Grid item xs={3} style={style.avatarGrid}>
                             <Box>
@@ -102,7 +101,7 @@ const QueueList = () => {
                 </Box>
             })}
 
-        </>
+        </Box>
     );
 }
 

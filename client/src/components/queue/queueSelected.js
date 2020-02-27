@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 500,
         borderRadius: 20,
+        marginTop: 40
     },
     content: {
         padding: 24,
@@ -70,9 +71,9 @@ const QueueSelected = () => {
 
     return (
 
-        <>
+        <Box className={"animated fadeIn"}>
             {selected.length > 0 ? (
-                <Card className={`${classes.root}, ${classes.root}`} classes={shadowStyles}>
+                <Card className={classes.root} classes={shadowStyles}>
                     <BrandCardHeader
                         image={selected[0].student.img}
                         extra={selected[0].student.name}
@@ -84,7 +85,7 @@ const QueueSelected = () => {
                         </Box>
                         <form action="/" method="POST" onSubmit={sendComments}>
                             <Box component="div" >
-                                <TextField id="outlined-basic" label="Notes" variant="outlined" multiline rows="4" fullWidth onChange={getTextValue} defaultValue={textArea}/>
+                                <TextField id="outlined-basic" label="Notes" variant="outlined" multiline rows="4" fullWidth onChange={getTextValue} />
                             </Box>
                             <Box mt="10px">
                                 <Button
@@ -125,7 +126,7 @@ const QueueSelected = () => {
                     </Card>
                 )}
 
-        </>
+        </Box>
     );
 };
 
