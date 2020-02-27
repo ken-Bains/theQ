@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import FusionCharts from 'fusioncharts';
 import Charts from 'fusioncharts/fusioncharts.charts';
@@ -9,6 +9,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { useFadedShadowStyles } from '@mui-treasury/styles/shadow/faded';
 import Button from '@material-ui/core/Button';
+import { QueueContext } from "../../utils/queueProvider";
 
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
@@ -16,6 +17,7 @@ ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
 const History = () => {
     const theme = useTheme();
+    const isAuth = useContext(QueueContext);
 
     const themeType = theme.palette.background.paper === "#fff" ? "gammel" : "candy";
 
@@ -127,7 +129,8 @@ const History = () => {
         dataSource: dataSource,
     };
     return (
-        <Box m="30px" style={styles1.box}>
+        isAuth ? (
+            <Box m="30px" style={styles1.box}>
             <Grid container classes={styles} >
                 <Grid item xs={8}>
                     <ReactFC {...chartConfigs} />
@@ -152,8 +155,8 @@ const History = () => {
                     </Box>
                 </Grid>
             </Grid>
-
         </Box>
+        ) : (<p></p>)
     )
 
 }
