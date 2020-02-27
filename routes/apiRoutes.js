@@ -1,30 +1,11 @@
 const axios = require("axios");
 const router = require("express").Router();
-let serviceAccount = require("../firestore.json")
-const admin = require('firebase-admin');
-// console.log(process.env.CLIENT_ID)
- 
-// let serviceAccount = {
-//   "type": "service_account",
-//   "project_id": "bootcamp-q",
-//   "private_key_id": process.env.PRIVATE_KEY_ID,
-//   "private_key": process.env.PRIVATE_KEY,
-//   "client_email": process.env.CLIENT_EMAIL,
-//   "client_id": process.env.CLIENT_ID_FIREBASE,
-//   "auth_uri": process.env.AUTH_URI,
-//   "token_uri": process.env.TOKEN_URI,
-//   "auth_provider_x509_cert_url": process.env.AUTH_PROVIDER_CERT, 
-//   "client_x509_cert_url": process.env.CLIENT_CERT
-// }
 
-// const adminConfig = JSON.parse(process.env.FIREBASE_CONFIG);
-// adminConfig.credential = admin.credential.cert(serviceAccount);
-// admin.initializeApp(adminConfig);
-
+var admin = require('firebase-admin');
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
-let db = admin.firestore();
+  credential: admin.credential.applicationDefault(),
+  databaseURL: 'https://bootcamp-q.firebaseio.com'
+});let db = admin.firestore();
 
 
 router.get('/oauth', function (req, res) {
