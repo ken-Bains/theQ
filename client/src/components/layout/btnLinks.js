@@ -7,7 +7,7 @@ import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import firebaseApp from "../../firebase";
 import { QueueContext } from "../../utils/queueProvider";
-
+import SnackConfirm from "./snackbar";
 import "./styles.css"
 
 const auth = firebaseApp.auth();
@@ -67,10 +67,22 @@ const useStyles = makeStyles(theme => ({
 
 const BtnLinks = () => {
     const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+    const [message, setMessage] = React.useState("");
+    const [varient, setVarient] = React.useState("");
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const isAuth = useContext(QueueContext);
-
+    const handleClick = () => {
+        setOpen(true);
+      };
+      const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
     const style = {
         button: {
             color: "#fff"
@@ -101,14 +113,22 @@ const BtnLinks = () => {
         setLoginPassword("");
 
         if (loginEmail !== "" && loginPassword !== "") {
-
             auth.signInWithEmailAndPassword(loginEmail, loginPassword).then((cred) => {
                 console.log(cred)
+                setOpen(true);
+                setMessage("Login Successfull!");
+                setVarient("success");
+    
             }).catch(err => {
                 console.log(err)
+                setOpen(true);
+                setMessage(err.message);
+                setVarient("warning");
             });
         } else {
-            //trigger error 
+            setOpen(true);
+            setMessage("Fields can not be empty");
+            setVarient("error");
         }
 
     }
@@ -116,8 +136,17 @@ const BtnLinks = () => {
 
     }
     return (
-        isAuth ? (
+        <>
+        <SnackConfirm 
+        open={open} 
+        message={message} 
+        varient={varient} 
+        handleClick={handleClick}
+        handleClose={handleClose}
+        />
+        {isAuth ? (
             <>
+                        
                 <Button style={style.button} onClick={addUserBtn}>Add User</Button>
                 <Button style={style.button} onClick={logoutBtn}>Logout</Button>
             </>
@@ -162,7 +191,8 @@ const BtnLinks = () => {
                     </Box>
                     <Button style={style.button} onClick={loginBtn}>LogIn</Button>
                 </>
-            )
+            )}
+            </>
     );
 }
 

@@ -21,6 +21,7 @@
     "disableHostCheck": true
   },
   "dependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.44",
     "axios": "^0.19.2",
     "create-react-app": "^3.3.1",
     "express": "^4.16.3",

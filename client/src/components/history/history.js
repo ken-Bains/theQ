@@ -1,4 +1,4 @@
-import React, { Component, useContext } from 'react';
+import React, { Component, useContext, useState } from 'react';
 import ReactDOM from 'react-dom';
 import FusionCharts from 'fusioncharts';
 import Charts from 'fusioncharts/fusioncharts.charts';
@@ -18,7 +18,6 @@ ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 const History = () => {
     const theme = useTheme();
     const isAuth = useContext(QueueContext);
-
     const themeType = theme.palette.background.paper === "#fff" ? "gammel" : "candy";
 
     const styles = useFadedShadowStyles();
