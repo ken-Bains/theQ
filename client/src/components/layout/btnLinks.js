@@ -71,18 +71,18 @@ const BtnLinks = () => {
     const [message, setMessage] = React.useState("");
     const [varient, setVarient] = React.useState("");
     const [loginEmail, setLoginEmail] = useState("");
+    const [addAdminEmail, setAddAdminEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const isAuth = useContext(QueueContext);
     const handleClick = () => {
         setOpen(true);
-      };
-      const handleClose = (event, reason) => {
+    };
+    const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
-          return;
+            return;
         }
-    
         setOpen(false);
-      };
+    };
     const style = {
         button: {
             color: "#fff"
@@ -94,6 +94,10 @@ const BtnLinks = () => {
         box2: {
             position: "absolute",
             right: 120
+        },
+        box3: {
+            position: "absolute",
+            right: 210
         }
     }
 
@@ -104,6 +108,9 @@ const BtnLinks = () => {
     }
     const getEmail = (e) => {
         setLoginEmail(e.target.value)
+    }
+    const getAdminEmail = (e) => {
+        setAddAdminEmail(e.target.value)
     }
     const getPassword = (e) => {
         setLoginPassword(e.target.value)
@@ -118,7 +125,7 @@ const BtnLinks = () => {
                 setOpen(true);
                 setMessage("Login Successfull!");
                 setVarient("success");
-    
+
             }).catch(err => {
                 console.log(err)
                 setOpen(true);
@@ -133,66 +140,92 @@ const BtnLinks = () => {
 
     }
     const addUserBtn = () => {
-
+        setAddAdminEmail("");
+        auth.createUserWithEmailAndPassword(addAdminEmail, "password").then(cred => {
+            console.log(cred)
+            setOpen(true);
+            setMessage(`${addAdminEmail}, has been added as a user!`);
+            setVarient("success");
+        }).catch(err => {
+            setOpen(true);
+            setMessage(err.message);
+            setVarient("error");
+        });
     }
     return (
         <>
-        <SnackConfirm 
-        open={open} 
-        message={message} 
-        varient={varient} 
-        handleClick={handleClick}
-        handleClose={handleClose}
-        />
-        {isAuth ? (
-            <>
-                        
-                <Button style={style.button} onClick={addUserBtn}>Add User</Button>
-                <Button style={style.button} onClick={logoutBtn}>Logout</Button>
-            </>
-        ) : (
+            <SnackConfirm
+                open={open}
+                message={message}
+                varient={varient}
+                handleClick={handleClick}
+                handleClose={handleClose}
+            />
+            {isAuth ? (
                 <>
-                    <Box style={style.box} mt="5px">
+                    <Box style={style.box3} mt="5px">
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
                                 <EmailOutlinedIcon />
                             </div>
                             <InputBase
-                                placeholder="Email"
+                                placeholder="Add User Email"
                                 classes={{
                                     root: classes.inputRoot,
                                     input: classes.inputInput,
                                 }}
                                 inputProps={{ 'aria-label': 'search' }}
-                                onChange={getEmail}
-                                value={loginEmail}
+                                onChange={getAdminEmail}
+                                value={addAdminEmail}
                             />
                         </div>
                     </Box>
-                    <Box style={style.box2} mt="5px">
-                        <div className={classes.search}>
-                            <div className={classes.searchIcon}>
-                                <VisibilityOutlinedIcon />
-                            </div>
-                            <InputBase
-                                placeholder="Password"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                                inputProps={{ 'aria-label': 'search' }}
-                                type="password"
-                                onChange={getPassword}
-                                value={loginPassword}
-
-
-                            />
-                        </div>
-                    </Box>
-                    <Button style={style.button} onClick={loginBtn}>LogIn</Button>
+                    <Button style={style.button} onClick={addUserBtn}>Add User</Button>
+                    <Button style={style.button} onClick={logoutBtn}>Logout</Button>
                 </>
-            )}
-            </>
+            ) : (
+                    <>
+                        <Box style={style.box} mt="5px">
+                            <div className={classes.search}>
+                                <div className={classes.searchIcon}>
+                                    <EmailOutlinedIcon />
+                                </div>
+                                <InputBase
+                                    placeholder="Email"
+                                    classes={{
+                                        root: classes.inputRoot,
+                                        input: classes.inputInput,
+                                    }}
+                                    inputProps={{ 'aria-label': 'search' }}
+                                    onChange={getEmail}
+                                    value={loginEmail}
+                                />
+                            </div>
+                        </Box>
+                        <Box style={style.box2} mt="5px">
+                            <div className={classes.search}>
+                                <div className={classes.searchIcon}>
+                                    <VisibilityOutlinedIcon />
+                                </div>
+                                <InputBase
+                                    placeholder="Password"
+                                    classes={{
+                                        root: classes.inputRoot,
+                                        input: classes.inputInput,
+                                    }}
+                                    inputProps={{ 'aria-label': 'search' }}
+                                    type="password"
+                                    onChange={getPassword}
+                                    value={loginPassword}
+
+
+                                />
+                            </div>
+                        </Box>
+                        <Button style={style.button} onClick={loginBtn}>LogIn</Button>
+                    </>
+                )}
+        </>
     );
 }
 
